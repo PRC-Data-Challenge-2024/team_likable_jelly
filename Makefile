@@ -103,8 +103,11 @@ $(AIRPORTS): $(FLIGHTS)
 	python3 airports_to_parquet.py -a_in ourairports2024-10-21.csv -a_out $@  -flights "$(FLIGHTS)"
 
 
-$(METARS): $(AIRPORTS)
-	gdown 'https://drive.google.com/uc?export=download&id=1udmsuT317LECvr1JJNEmhdp0bM2OGq9W' -O $@
+$(METARS): #$(AIRPORTS)
+	# This link has been deleted the 23 June 2025
+	# gdown 'https://drive.google.com/uc?export=download&id=1udmsuT317LECvr1JJNEmhdp0bM2OGq9W' -O $@
+	# This link replaces the link above
+	gdown 'https://drive.google.com/uc?export=download&id=1XlK1NHySQ9Z9FksG1GhyPiVpFOMrA4ue' -O $@
 	# uncomment below to generate it from scratch
 	# result might be different as mesonet's files might have been updated
 	# I've experienced one station's location update in a 2 weeks timespan
