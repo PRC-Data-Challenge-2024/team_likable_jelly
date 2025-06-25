@@ -35,10 +35,11 @@ def isvar(v):
 class FilterCstLatLon(filters.FilterBase):
     ''' filter out measurments where latitude and longitude are constant'''
     def apply(self,df):
+        # print(type(df.altitude))
         df = df.copy()
-        alt = df.altitude.values
-        lat = df.latitude.values
-        lon = df.longitude.values
+        alt = df.altitude.to_numpy()#values
+        lat = df.latitude.to_numpy()#values
+        lon = df.longitude.to_numpy()#values
         isupdated = np.zeros(alt.shape, dtype=bool)
         isupdated[1:] = np.logical_or(isvar(lat),isvar(lon))
         df.loc[np.logical_not(isupdated),["latitude","longitude"]]=np.nan
@@ -81,9 +82,9 @@ class FilterCstPosition(filters.FilterBase):
         df = df.copy()
         if df.shape[0]<=1:
             return df
-        alt = df.altitude.values
-        lat = df.latitude.values
-        lon = df.longitude.values
+        alt = df.altitude.to_numpy()
+        lat = df.latitude.to_numpy()
+        lon = df.longitude.to_numpy()
         isupdated = np.zeros(alt.shape,dtype=bool)#False
         isupdated[1:] = np.logical_or(isvar(alt),isvar(lat))
         isupdated[1:] = np.logical_or(isupdated[1:],isvar(lon))
@@ -97,9 +98,9 @@ class FilterCstSpeed(filters.FilterBase):
         df = df.copy()
         if df.shape[0]<=1:
             return df
-        vrate = df.vertical_rate.values
-        track = df.track.values
-        gs = df.groundspeed.values
+        vrate = df.vertical_rate.to_numpy()
+        track = df.track.to_numpy()
+        gs = df.groundspeed.to_numpy()
         isupdated = np.zeros(vrate.shape,dtype=bool)
         isupdated[1:] = np.logical_or(isvar(vrate),isvar(gs))
         isupdated[1:] = np.logical_or(isupdated[1:],isvar(track))
